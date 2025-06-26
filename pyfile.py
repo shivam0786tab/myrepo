@@ -1,1 +1,1 @@
-print("hello world from python v1.0")
+print("hello world from python v2.0")
