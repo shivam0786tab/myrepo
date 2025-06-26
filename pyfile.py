@@ -1,1 +1,1 @@
-print("hello world from python v2.0")
+prient("hello world from python v2.0")
