@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "testappp",
   "version": "0.1.0",
   "private": true,
@@ -35,5 +36,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+=======
+  "name": "myapp",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "mysql2": "^3.14.2"
+>>>>>>> 8f7dd89 (ec2-docker-app-with-mysql')
   }
 }

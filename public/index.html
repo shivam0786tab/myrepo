@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
@@ -40,4 +41,159 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+=======
+<head>
+  <meta charset="UTF-8" />
+  <title>User Manager</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f8;
+      color: #333;
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    input[type="text"] {
+      width: 70%;
+      padding: 10px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #3498db;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: white;
+      margin: 10px 0;
+      padding: 10px 15px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .delete-btn {
+      background-color: #e74c3c;
+    }
+
+    .delete-btn:hover {
+      background-color: #c0392b;
+    }
+
+    .form-group {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    #userList {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>User Manager</h1>
+
+  <div class="form-group">
+    <input type="text" id="nameInput" placeholder="Enter name">
+    <button onclick="addUser()">Add User</button>
+  </div>
+
+  <h2>All Users</h2>
+  <div style="text-align: center;">
+    <button onclick="fetchUsers()">Show All Users</button>
+  </div>
+
+  <ul id="userList"></ul>
+
+  <h2>Deleted Users</h2>
+<div style="text-align: center;">
+  <button onclick="fetchDeletedUsers()">Show Deleted Users</button>
+</div>
+<ul id="deletedUserList"></ul>
+
+
+  <script>
+    async function addUser() {
+      const name = document.getElementById('nameInput').value.trim();
+      if (!name) return alert("Please enter a name.");
+      await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name })
+      });
+      document.getElementById('nameInput').value = '';
+      fetchUsers();
+    }
+
+    async function fetchUsers() {
+      const res = await fetch('/api/users');
+      const users = await res.json();
+      const list = document.getElementById('userList');
+      list.innerHTML = '';
+      users.forEach(user => {
+        const li = document.createElement('li');
+        li.textContent = user.name;
+
+        const delBtn = document.createElement('button');
+        delBtn.textContent = 'Delete';
+        delBtn.className = 'delete-btn';
+        delBtn.onclick = () => deleteUser(user.id);
+        li.appendChild(delBtn);
+
+        list.appendChild(li);
+      });
+    }
+
+    async function deleteUser(id) {
+      await fetch(`/api/users/${id}`, { method: 'DELETE' });
+      fetchUsers();
+    }
+
+    // Auto load users on page load
+    fetchUsers();
+
+    // ...existing functions remain
+
+async function fetchDeletedUsers() {
+  const res = await fetch('/api/deleted-users');
+  const users = await res.json();
+  const list = document.getElementById('deletedUserList');
+  list.innerHTML = '';
+  users.forEach(user => {
+    const li = document.createElement('li');
+    const deletedAt = new Date(user.deleted_at).toLocaleString();
+    li.textContent = `${user.name} (Deleted: ${deletedAt})`;
+    list.appendChild(li);
+  });
+}
+  </script>
+</body>
+>>>>>>> 8f7dd89 (ec2-docker-app-with-mysql')
 </html>
